@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://cdn.jsdeliver.net/npm/vue"></script>
+</head>
+</html>
+<body>
+<main>
+   <table border="1">
+       <thead>
+           <th>NOMBRE</th>
+           <th>CEDULA</th>
+           <th>TELEFONO</th>
+           <th>EDAD</th>
+       </thead>
+       <tbody>
+           <tr v-for="(item, idx) in users">
+               <td>{{item.nombre}}</td>
+               <td>{{item.cedula}}</td>
+               <td>{{item.telefono}}</td>
+               <td>{{item.edad}}</td>
+           </tr>
+       </tbody>
+   </table>
+   <form @submit.prevent="createUser">
+       <input type="text" placeholder="nombre" v-model="objtUser.nombre"/>
+       <input type="text" placeholder="cedula" v-model="objtUser.cedula"/>
+       <input type="text" placeholder="telefono" v-model="objtUser.telefono"/>
+       <input type="text" placeholder="edad" v-model="objtUser.edad"/>
+       <input type="submit" value="GUARDAR" /> 
+   </form>
+    {{$data}}
+    <input v-model="edad"/>
+    <b v-if="edad && edad>17"> MAYOR DE EDAD </b>
+   <b v-else> MENOR DE EDAD </b>
+</main>
+</body>
+<script type="text/javascript">
+	new Vue ({
+		el:'main',
+		data:{
+            users:[
+                 {'nombre':'Ernesto'},
+                 {'nombre':'carlos'},
+                 {'nombre':'allison'}
+             ],
+             objtUser: {'nombre':null,'cedula':null,'telefono':null,'edad':null}
+			},
+            methods:{
+                createUser(){
+                    this.users.unshift(this.objtUser);
+                    this.orderUser;
+                    this.objtUser={'nombre':null,'cedula':null,'telefono':null,'edad':null}
+                }
+             },
+             computed:{
+                 orderUser(){
+                     return this.users.sort(function(a,b){
+                         if(a.nombre >b.nombre){
+                             return 1;
+                         }
+                         if(a.nombre < b.nombre){
+                             return -1;
+                         }
+                         return 0;
+                     });
+                     
+                 }
+             }
+		});
+	</script>
